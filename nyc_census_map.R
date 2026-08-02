@@ -28,15 +28,17 @@ queens <- get_acs(
   year = 2024
 )
 
+# take a look at the top of the dataframe
 head(queens)
 
+# quickly map this data
 queens %>%
   ggplot(aes(fill = estimate)) +
   geom_sf(color = NA) +
   scale_fill_viridis_c(option = "magma") +
   theme_minimal()
 
-# look at multiple variables, and facet-map them
+# look at multiple variables from decennial data
 racevars <- c(White = "P2_005N",
               Black = "P2_006N",
               Asian = "P2_008N",
@@ -50,11 +52,12 @@ queens_race <- get_decennial(
   geometry = TRUE,
   summary_var = "P2_001N", # multi-group denominator
   year = 2020,
-  sumfile = "pl"
+  sumfile = "pl" # this is the default for 2020
 )
 
 head(queens_race)
 
+# facet-map these multiple variables at once
 queens_race %>%
   mutate(percent = 100 * (value / summary_value)) %>%
   ggplot(aes(fill = percent)) +
