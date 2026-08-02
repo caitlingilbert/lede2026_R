@@ -6,13 +6,14 @@ accidents <- readr::read_csv("https://raw.githubusercontent.com/caitlingilbert/t
 
 # Take a look at this dataframe
 glimpse(accidents)
+view(accidents)
 
 # What parks are in this data set?
 unique(accidents$park)
 unique(accidents$park_specific) # just Disney/Universal
 
 # How many accidents have happened in each park?
-accidents %>%
+accidents %>% 
   dplyr::count(park, sort = TRUE)
 
 accidents %>%
@@ -74,4 +75,10 @@ accidents %>%
   group_by(park, preexisting) %>% 
   summarise(total = n())
 
+accidents_byquarter <- accidents %>% 
+  count(year_qtr)
+
 # What other questions do you want to ask?
+
+ggplot2::diamonds
+

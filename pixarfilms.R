@@ -96,7 +96,7 @@ public_response_cleaned %>%
   scale_color_brewer(palette = "Dark2") +
   labs(x = "Pixar film", y = "Rating value")
 
-# the grey background is kinda, we want something a bit cleaner
+# the grey background is kinda meh, we want something a bit cleaner
 public_response_cleaned %>%
   ggplot(aes(x = film, y = value, color = ratings)) +
   geom_point() +
