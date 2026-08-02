@@ -10,5 +10,5 @@ Course materials for Lede 2026 module on R for Data Journalism and Statistics
 - [Day Two Slides](https://docs.google.com/presentation/d/1nzmhNm5FYXsT_vNHdet4vj9qw5bqdDMNqA-XSia4li4/edit?usp=sharing)
 - Pixar films [database](https://erictleung.com/pixarfilms/)
 - Pixar films [script](https://github.com/caitlingilbert/lede2026_R/blob/main/pixarfilms.R)
-- NYC tidycensus [script]()
-- Love is Blind scraping [script]()
+- NYC tidycensus [script](https://github.com/caitlingilbert/lede2026_R/blob/main/nyc_census_map.R)
+- Love is Blind scraping [script](https://github.com/caitlingilbert/lede2026_R/blob/main/loveisblind.R)
