@@ -142,9 +142,9 @@ prop.test(
   p = 0.25 # we test for equal proportion so prob = 0.5 in each group
 )
 
-# One mean
+# One mean: monthly murder count in any place in the South
 t.test(x = crime_bystate$Murder[crime_bystate$Region=="South"],
-       mu = 20)
+       mu = 5)
 
 ## Compare two (or more) means
 
@@ -168,12 +168,13 @@ t.test(murder_total ~ Region, # variance unknown/unequal
        )
 
 wilcox.test(murder_total ~ Region,
-            data = crime_bystate_agg) # non-parametric
+            data = crime_bystate_agg) # non-parametric/non-normal
 
 crime_bystate_agg2 <- crime_bystate %>%
   group_by(Year, State, Region) %>%
   summarise(murder_total = sum(Murder))
 
+# more than two groups...ANOVA
 oneway.test(murder_total ~ Region,
             data = crime_bystate_agg2,
             var.equal = TRUE # assuming equal variances
@@ -185,6 +186,9 @@ oneway.test(murder_total ~ Region,
             )
 
 library(ggstatsplot)
+
+nationwidecrime_byregion <- allcrimes %>%
+  filter(State == "Nationwide" & Region != "Other")
 
 ggbetweenstats(
   data = nationwidecrime_byregion,
@@ -199,33 +203,42 @@ ggbetweenstats(
   bf.message = FALSE
 )
 
-# Did violent crime numbers change from 2018 to 2024?
-nationwide_violentcrime_wide <- nationwidecrime %>%
-  select(Year, Month, `Violent Crime`) %>%
-  pivot_wider(names_from = Year, values_from = `Violent Crime`)
-
-t.test(nationwide_violentcrime_wide$`2018`, nationwide_violentcrime_wide$`2024`,
-       alternative = "greater",
+# Did violent crime numbers in NYC change from 2017 to 2025?
+nyccrimes_violent_wide <- nyccrimes %>% 
+  select(1:3) %>% 
+  pivot_wider(names_from = "year", values_from = "violent_count")
+t.test(nyccrimes_violent_wide$`2017`, nyccrimes_violent_wide$`2025`,
+       alternative = "less",
        paired = TRUE
        )
 
 ### LINEAR REGRESSION
 
-model <- lm(`Violent Crime` ~ `Property Crime`, data = nationwidecrime)
+model <- lm(violent_count ~ property_count, data = nyccrimes)
 summary(model)
+
+#Call: information about the formula and dataset used to fit the model.
+#Residuals: information about the model residuals
+#Coefficients: a table showing the fitted model coefficients their standard errors, t-statistics (used for computing p-values), and p-values
+#Information about the model fit, including the the Multiple R-squared, or coefficient of determination, which describes how much of the variance of y is described by x
 
 library(ggpubr)
 
-nationwidecrime %>%
-  ggplot(aes(x = `Violent Crime`, y = `Property Crime`)) +
+nyccrimes %>%
+  ggplot(aes(x = violent_count, y = property_count)) +
   geom_smooth(method = "lm") +
   geom_point() +
-  stat_regline_equation(label.x = 45000, label.y = 250000) + # for regression equation
-  stat_cor(aes(label = after_stat(rr.label)), label.x = 32000, label.y = 250000) + # for R^2
+  stat_regline_equation(label.x = 3700, label.y = 9000) + # for regression equation
+  stat_cor(aes(label = after_stat(rr.label)), label.x = 2400, label.y = 9000) + # for R^2
   theme_minimal()
 
-# see how the slope changes! is it better or worse?
-model2 <- lm(`Violent Crime` ~ `Property Crime` + Theft, data = nationwidecrime)
+# see how the slope changes when we add a "confounding variable"! is it better or worse?
+model2 <- lm(violent_count ~ property_count + theft_count, data = nyccrimes)
 summary(model2)
 
+coef(model)
+coef(model2)
 
+model3 <- lm(violent_count ~ ., data = nyccrimes)
+summary(model3)
+coef(model3)
