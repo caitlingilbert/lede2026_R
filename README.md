@@ -12,3 +12,9 @@ Course materials for Lede 2026 module on R for Data Journalism and Statistics
 - Pixar films [script](https://github.com/caitlingilbert/lede2026_R/blob/main/pixarfilms.R)
 - NYC tidycensus [script](https://github.com/caitlingilbert/lede2026_R/blob/main/nyc_census_map.R)
 - Love is Blind scraping [script](https://github.com/caitlingilbert/lede2026_R/blob/main/loveisblind.R)
+
+8/5/26:
+- [Day Three Slides](https://docs.google.com/presentation/d/1G9iPFZIW73mo5WcdBYZjihBnC8oLCmhZjITfDgJTf-Y/edit?usp=sharing)
+- National Crime [database](https://crimeindex.org/current?topic=crime&stat=violent&geo=us&size=all)
+- NYC historical crime [data]()
+- NYC crime stats [script]()
