@@ -16,5 +16,5 @@ Course materials for Lede 2026 module on R for Data Journalism and Statistics
 8/5/26:
 - [Day Three Slides](https://docs.google.com/presentation/d/1G9iPFZIW73mo5WcdBYZjihBnC8oLCmhZjITfDgJTf-Y/edit?usp=sharing)
 - National Crime [database](https://crimeindex.org/current?topic=crime&stat=violent&geo=us&size=all)
-- NYC historical crime [data]()
-- NYC crime stats [script]()
+- NYC historical crime [data](https://github.com/caitlingilbert/lede2026_R/blob/main/nyc_crimedata.csv)
+- NYC crime stats [script](https://github.com/caitlingilbert/lede2026_R/blob/main/nyccrimestats.R)
