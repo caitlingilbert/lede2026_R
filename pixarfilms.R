@@ -27,6 +27,8 @@ pixar_people_music <- pixar_people %>%
 
 pixar_academy_people_joined <- pixar_academy_music %>%
   left_join(pixar_people_music, by = "film") %>%
+  count(name)
+
   group_by(name) %>%
   summarise(n = n())
 
@@ -149,7 +151,7 @@ public_response_cleaned %>%
 # what if I just wanted to look at the distribution of ratings across all films?
 public_response_cleaned %>%
   ggplot(aes(x=value)) +
-  geom_histogram()
+  geom_histogram(bins=50)
 
 # but what if I want to separate this out by the type of rating?
 public_response_cleaned %>%
